@@ -32,6 +32,10 @@ const schema = new Schema<IStudent>({
     required: true,
     unique: true
   },
+  contact_number: {
+    type: String,
+    required: true
+  },
   collegeId: {
     type: String,
     required: true
@@ -47,6 +51,10 @@ const schema = new Schema<IStudent>({
   profilePictureKey: {
     type: String,
     default: null
+  },
+  isUpdated: {
+    type: Boolean,
+    default: false
   },
   isActive: {
     type: Boolean,

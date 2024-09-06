@@ -29,6 +29,12 @@ const schema = new Schema<IResume>({
     type: String,
     required: true
   },
+  area_of_interest: [
+    {
+      type: String,
+      required: true
+    }
+  ],
   education: {
     tenth: {
       institution: {

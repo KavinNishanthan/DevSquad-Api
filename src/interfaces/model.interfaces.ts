@@ -5,11 +5,13 @@ interface IStudent {
   password: string;
   personal_email?: string;
   register_number?: string;
+  contact_number?: string;
   collegeId: string;
   batchId: string;
   profilePictureUrl?: string;
   profilePictureKey?: string;
   isActive: boolean;
+  isUpdated: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -21,6 +23,7 @@ interface IResume {
   portfolio_url: string;
   git_hub_url: string;
   about_me: string;
+  area_of_interest: string[];
   education: {
     tenth: {
       institution: string;
