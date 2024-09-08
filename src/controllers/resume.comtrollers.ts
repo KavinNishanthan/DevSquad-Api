@@ -26,11 +26,6 @@ const createResume = async (req: Request, res: Response) => {
       git_hub_url,
       about_me,
       education,
-      experience,
-      projects,
-      skills,
-      optin_drives,
-      optout_drives,
       no_of_current_arrear,
       history_of_arrears
     } = req.body;
@@ -69,11 +64,11 @@ const createResume = async (req: Request, res: Response) => {
       git_hub_url,
       about_me,
       education,
-      experience: experience || [],
-      projects: projects || [],
-      skills: skills || [],
-      optin_drives: optin_drives || [],
-      optout_drives: optout_drives || [],
+      experience: [],
+      projects: [],
+      skills: [],
+      optin_drives: [],
+      optout_drives: [],
       no_of_current_arrear,
       history_of_arrears
     });

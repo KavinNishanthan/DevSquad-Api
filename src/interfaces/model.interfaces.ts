@@ -3,6 +3,7 @@ interface IStudent {
   name?: string;
   email: string;
   password: string;
+  department?: string;
   personal_email?: string;
   register_number?: string;
   contact_number?: string;
@@ -93,9 +94,7 @@ interface ICollege {
   updatedAt: Date;
 }
 
-
-
-interface IPlacementDrive {
+interface IDrive {
   collegeId: string;
   companyId: string;
   companyName: string;
@@ -112,7 +111,15 @@ interface IPlacementDrive {
     description: string;
     venue: string;
   }[];
-  eligibleBatchYears: number[];
+  eligibleDepartments: string[];
+  eligibleBatch: number[];
+  eligibilityCriteria: {
+    minTenthMarks?: number;
+    minTwelfthMarks?: number;
+    minCGPA?: number;
+    noHistoryOfArrears?: boolean;
+    maxArrears: number;
+  };
   optedStudents: string[];
   optedOutStudents: string[];
   placedStudents: string[];
@@ -134,4 +141,4 @@ interface IVerificationToken {
   updatedAt: Date;
 }
 
-export { IStudent, ICollege, IResume, IPlacementDrive, IJwtToken, IVerificationToken };
+export { IStudent, ICollege, IResume, IDrive, IJwtToken, IVerificationToken };

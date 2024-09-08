@@ -36,6 +36,10 @@ const schema = new Schema<IStudent>({
     type: String,
     default: null
   },
+  department: {
+    type: String,
+    default: null
+  },
   collegeId: {
     type: String,
     required: true
