@@ -120,6 +120,10 @@ interface IDrive {
     noHistoryOfArrears?: boolean;
     maxArrears: number;
   };
+  techStackEligibility?: {
+    isTechStackRequired: boolean;
+    requiredSkills?: string[];
+  };
   optedStudents: string[];
   optedOutStudents: string[];
   placedStudents: string[];

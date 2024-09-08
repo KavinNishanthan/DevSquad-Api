@@ -7,7 +7,7 @@ import resumeController from '../controllers/resume.comtrollers';
 // Defining routers
 const router = Router();
 
-// Reesume routes
+// Resume routes
 router.post('/create-resume/:studentId', resumeController.createResume);
 router.put('/update-resume/:studentId', resumeController.updateResume);
 router.post('/add-skill/:studentId', resumeController.addSkills);

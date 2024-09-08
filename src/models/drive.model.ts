@@ -103,6 +103,16 @@ const driveSchema = new Schema<IDrive>({
       required: true
     }
   },
+  techStackEligibility: {
+    isTechStackRequired: {
+      type: Boolean,
+      required: true
+    },
+    requiredSkills: {
+      type: [String],
+      default: []
+    }
+  },
   createdAt: {
     type: Date,
     default: Date.now

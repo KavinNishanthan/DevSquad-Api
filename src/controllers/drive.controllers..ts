@@ -17,7 +17,6 @@ import responseMessageConstant from '../constants/response-message.constant';
 const createDrive = async (req: Request, res: Response) => {
   try {
     const {
-      collegeId,
       companyName,
       driveDate,
       requirements,
@@ -27,11 +26,21 @@ const createDrive = async (req: Request, res: Response) => {
       roundDetails,
       eligibleBatch,
       eligibleDepartments,
-      eligibilityCriteria
+      eligibilityCriteria,
+      techStackEligibility
     } = req.body;
 
+    const { collegeId } = req.params;
+
+    if (!collegeId) {
+      return res.status(HttpStatusCode.BadRequest).json({
+        status: httpStatusConstant.BAD_REQUEST,
+        code: HttpStatusCode.BadRequest,
+        message: 'College ID is required'
+      });
+    }
+
     const driveValidationSchema = Joi.object({
-      collegeId: Joi.string().required(),
       companyName: Joi.string().required(),
       driveDate: Joi.date().required(),
       requirements: Joi.array().items(Joi.string()).required(),
@@ -62,6 +71,10 @@ const createDrive = async (req: Request, res: Response) => {
         minCGPA: Joi.number().required(),
         noHistoryOfArrears: Joi.boolean().required(),
         maxArrears: Joi.number().required()
+      }).required(),
+      techStackEligibility: Joi.object({
+        isTechStackRequired: Joi.boolean().required(),
+        requiredSkills: Joi.array().items(Joi.string()).default([])
       }).required()
     });
 
@@ -89,7 +102,8 @@ const createDrive = async (req: Request, res: Response) => {
       roundDetails,
       eligibleBatch,
       eligibleDepartments,
-      eligibilityCriteria
+      eligibilityCriteria,
+      techStackEligibility
     });
 
     await newDrive.save();
@@ -111,9 +125,9 @@ const createDrive = async (req: Request, res: Response) => {
 
 const deleteDrive = async (req: Request, res: Response) => {
   try {
-    const { driveId } = req.params;
+    const { companyId } = req.params;
 
-    if (!driveId) {
+    if (!companyId) {
       return res.status(HttpStatusCode.BadRequest).json({
         status: httpStatusConstant.BAD_REQUEST,
         code: HttpStatusCode.BadRequest,
@@ -121,7 +135,7 @@ const deleteDrive = async (req: Request, res: Response) => {
       });
     }
 
-    const drive = await driveModel.findByIdAndDelete(driveId);
+    const drive = await driveModel.findOneAndDelete({ companyId });
 
     if (!drive) {
       return res.status(HttpStatusCode.NotFound).json({
@@ -146,7 +160,52 @@ const deleteDrive = async (req: Request, res: Response) => {
   }
 };
 
+const getDrives = async (req: Request, res: Response) => {
+  try {
+    const { collegeId } = req.params;
+
+    const validateRequest = Joi.object({
+      collegeId: Joi.string().required()
+    });
+
+    const { error } = validateRequest.validate(req.params);
+
+    if (error) {
+      return res.status(HttpStatusCode.BadRequest).json({
+        status: httpStatusConstant.BAD_REQUEST,
+        code: HttpStatusCode.BadRequest,
+        message: error.details[0].message.replace(/"/g, '')
+      });
+    }
+
+    const drives = await driveModel.find({ collegeId });
+
+    if (drives.length === 0) {
+      return res.status(HttpStatusCode.NotFound).json({
+        status: httpStatusConstant.NOT_FOUND,
+        code: HttpStatusCode.NotFound,
+        message: 'No drives found for the provided college ID'
+      });
+    }
+
+    res.status(HttpStatusCode.Ok).json({
+      status: httpStatusConstant.SUCCESS,
+      code: HttpStatusCode.Ok,
+      message: 'Drives fetched successfully!',
+      data: drives
+    });
+  } catch (err: any) {
+    console.log(errorLogConstant.driveController.getDrivesErrorLog, err.message);
+    return res.status(HttpStatusCode.InternalServerError).json({
+      status: httpStatusConstant.ERROR,
+      code: HttpStatusCode.InternalServerError,
+      message: 'Internal server error'
+    });
+  }
+};
+
 export default {
   createDrive,
-  deleteDrive
+  deleteDrive,
+  getDrives
 };

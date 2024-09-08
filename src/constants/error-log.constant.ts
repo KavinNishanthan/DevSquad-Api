@@ -19,6 +19,7 @@ export default {
   },
   driveController: {
     createDriveErrorLog: '🚀 ~ file: drive.controller.ts ~ createDrive ~ err',
-    deleteDriveErrorLog: '🚀 ~ file: drive.controller.ts ~ deleteDrive ~ err'
+    deleteDriveErrorLog: '🚀 ~ file: drive.controller.ts ~ deleteDrive ~ err',
+    getDrivesErrorLog: '🚀 ~ file: drive.controller.ts ~ getDrives~ err'
   }
 };
