@@ -2,7 +2,7 @@
 import { Router } from 'express';
 
 // Importing controllers
-import driveController from '../controllers/drive.controllers.';
+import driveController from '../controllers/drive.controllers';
 
 // Defining routers
 const router = Router();
