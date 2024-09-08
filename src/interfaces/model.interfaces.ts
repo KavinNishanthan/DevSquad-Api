@@ -42,11 +42,14 @@ interface IResume {
       institution: string;
       year_of_completion: number;
       cgpa: number;
+      history_of_arrears: number;
+      no_of_current_arrear: number;
     };
   };
   experience: {
     company: string;
     role: string;
+    technologies: string[];
     duration: string;
   }[];
   projects: {
@@ -58,10 +61,7 @@ interface IResume {
   }[];
   skills: {
     skill_name: string;
-    verification_status: 'verified' | 'rejected';
-    verification_type: 'certificate' | 'AI_test';
-    certificate_url?: string;
-    test_result?: 'passed' | 'failed';
+    test_result: 'passed' | 'failed';
   }[];
   optin_drives: string[];
   optout_drives: string[];
@@ -81,7 +81,6 @@ interface ICollege {
   isActive: boolean;
   batches: {
     batchId: string;
-    year: number;
     totalNoOfStudents: number;
     students: string[];
     subscription: {

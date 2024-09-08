@@ -9,17 +9,13 @@ const batchSchema = new Schema({
     type: String,
     required: true
   },
-  year: {
-    type: Number,
-    required: true
-  },
   totalNoOfStudents: {
     type: Number,
     required: true
   },
   students: {
     type: [String],
-    required: true
+    default: []
   },
   subscription: {
     startDate: {

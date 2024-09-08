@@ -1,5 +1,5 @@
 // Importing packges
-import Joi from 'joi';
+import Joi, { string } from 'joi';
 import bcrypt from 'bcryptjs';
 import { HttpStatusCode } from 'axios';
 import { Request, Response } from 'express';
@@ -210,12 +210,10 @@ const handleLogin = async (req: Request, res: Response) => {
   }
 };
 
-
-
 /**
  * @createdBy Kavin Nishanthan P D
  * @createdAt 2024-09-02
- * @description This function is used to handle user login
+ * @description This function is used to handle user logout
  */
 
 const handleLogout = async (req: Request | any, res: Response) => {
@@ -306,6 +304,23 @@ const handleVerifiySession = async (req: Request, res: Response) => {
 
 const handleStudentRegister = async (req: Request, res: Response) => {
   try {
+    const { collegeId, batchId } = req.body;
+
+    const collegeValidation = Joi.object({
+      collegeId: Joi.string().required(),
+      batchId: Joi.number().required()
+    });
+
+    const { error } = collegeValidation.validate(req.body);
+
+    if (error) {
+      return res.status(HttpStatusCode.BadRequest).json({
+        status: httpStatusConstant.BAD_REQUEST,
+        code: HttpStatusCode.BadRequest,
+        message: error.details[0].message.replace(/"/g, '')
+      });
+    }
+
     const file = req.file;
 
     if (!file) {
@@ -330,7 +345,7 @@ const handleStudentRegister = async (req: Request, res: Response) => {
       }
 
       const name = email.split('@')[0];
-      const password = 'defaultPassword';
+      const password = name;
 
       const checkIsUserExists = await studentModel.findOne({ email }).select('email -_id');
 
@@ -339,17 +354,17 @@ const handleStudentRegister = async (req: Request, res: Response) => {
         continue;
       } else {
         const encryptedPassword = await bcrypt.hash(password, 10);
-        const generatedUserId = generateUUID();
+        const generatedStudentId = generateUUID();
 
         await studentModel.create({
-          studentId: generatedUserId,
+          studentId: generatedStudentId,
           name,
           email,
           register_number,
           password: encryptedPassword,
-          isManualAuth: true,
-          collegeId: 'your_college_id',
-          batchId: 'your_batch_id'
+          collegeId: collegeId,
+          batchId: batchId,
+          isUpdated: false
         });
       }
     }

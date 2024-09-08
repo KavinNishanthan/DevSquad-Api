@@ -21,5 +21,7 @@ export default {
   RESUME_ALREADY_EXISTS: 'Resume already exists for this student!',
   RESUME_CREATION_FAILED: 'Failed to create resume!',
   RESUME_NOT_FOUND: 'Resume not found!',
-  RESUME_UPDATE_FAILED: 'Failed to update resume!'
+  RESUME_UPDATE_FAILED: 'Failed to update resume!',
+  ERROR_ADDING_SKILL: 'Error adding skill',
+  SKILL_ADDED_SUCCESSFULLY: 'Skill added successfully'
 };

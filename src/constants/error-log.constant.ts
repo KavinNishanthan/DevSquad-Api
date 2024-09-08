@@ -8,6 +8,13 @@ export default {
   },
   resumeController: {
     createResumeErrorLog: '🚀 ~ file: resume.controller.ts ~ createResume ~ err',
-    updateResumeErrorLog: '🚀 ~ file: resume.controller.ts ~ updateResume ~ err'
+    updateResumeErrorLog: '🚀 ~ file: resume.controller.ts ~ updateResume ~ err',
+    addSkillErrorLog: '🚀 ~ file: resume.controller.ts ~ addSkill ~ err',
+    addProjectErrorLog: '🚀 ~ file: resume.controller.ts ~ addProjectError ~ err',
+    deleteProjectErrorLog: '🚀 ~ file: resume.controller.ts ~ deleteProjectError ~ err',
+    addExperienceErrorLog: '🚀 ~ file: resume.controller.ts ~ addExperienceError ~ err',
+    deleteExperienceErrorLog: '🚀 ~ file: resume.controller.ts ~ deleteExperienceError ~ err',
+    updateAreaOfInterestErrorLog: '🚀 ~ file: resume.controller.ts ~ updateAreaOfInterestError ~ err',
+    deleteAreaOfInterestErrorLog: '🚀 ~ file: resume.controller.ts ~ deleteAreaOfInterestError ~ err'
   }
 };

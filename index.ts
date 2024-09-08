@@ -32,3 +32,8 @@ app.listen(port, () => {
     `⚡️[server]: Server is running at http://localhost:${port} - ${new Date().toDateString()} / ${new Date().toLocaleTimeString()}`
   );
 });
+
+
+// PORT=8080
+// MONGOURI=mongodb+srv://kavin:C6lqylsrLHpjMJBY@cluster0.sckxsff.mongodb.net/HireBridge?retryWrites=true&w=majority
+// JWT_KEY=Sk1llTr2ck

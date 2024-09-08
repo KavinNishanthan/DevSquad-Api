@@ -25,7 +25,7 @@ const schema = new Schema<IStudent>({
   },
   personal_email: {
     type: String,
-    required: false
+    default: null
   },
   register_number: {
     type: String,
@@ -34,7 +34,7 @@ const schema = new Schema<IStudent>({
   },
   contact_number: {
     type: String,
-    required: true
+    default: null
   },
   collegeId: {
     type: String,

@@ -88,6 +88,14 @@ const schema = new Schema<IResume>({
       cgpa: {
         type: Number,
         required: true
+      },
+      no_of_current_arrear: {
+        type: Number,
+        required: true
+      },
+      history_of_arrears: {
+        type: Number,
+        required: true
       }
     }
   },
@@ -101,6 +109,12 @@ const schema = new Schema<IResume>({
         type: String,
         required: false
       },
+      technologies: [
+        {
+          type: String,
+          required: false
+        }
+      ],
       duration: {
         type: String,
         required: false
@@ -139,19 +153,6 @@ const schema = new Schema<IResume>({
         type: String,
         required: false
       },
-      verification_status: {
-        type: String,
-        enum: ['verified', 'rejected'],
-        required: false
-      },
-      verification_type: {
-        type: String,
-        enum: ['certificate', 'AI_test'],
-        required: false
-      },
-      certificate_url: {
-        type: String
-      },
       test_result: {
         type: String,
         enum: ['passed', 'failed']
@@ -161,13 +162,13 @@ const schema = new Schema<IResume>({
   optin_drives: [
     {
       type: String,
-      required: false
+      default: []
     }
   ],
   optout_drives: [
     {
       type: String,
-      required: false
+      default: []
     }
   ],
   placementStatus: {
@@ -176,7 +177,8 @@ const schema = new Schema<IResume>({
     default: false
   },
   placedCompany: {
-    type: String
+    type: String,
+    default: null
   },
   createdAt: {
     type: Date,
