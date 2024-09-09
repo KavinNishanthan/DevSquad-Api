@@ -88,19 +88,19 @@ const driveSchema = new Schema<IDrive>({
   eligibilityCriteria: {
     minTenthMarks: {
       type: Number,
-      default: null
+      required: true
     },
     minTwelfthMarks: {
       type: Number,
-      default: null
+      required: true
     },
     minCGPA: {
       type: Number,
-      default: null
+      required: true
     },
     noHistoryOfArrears: {
-      type: Boolean,
-      default: null
+      type: Number,
+      required: true
     },
     maxArrears: {
       type: Number,

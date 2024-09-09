@@ -71,7 +71,7 @@ const createDrive = async (req: Request, res: Response) => {
         minTenthMarks: Joi.number().required(),
         minTwelfthMarks: Joi.number().required(),
         minCGPA: Joi.number().required(),
-        noHistoryOfArrears: Joi.boolean().required(),
+        noHistoryOfArrears: Joi.number().required(),
         maxArrears: Joi.number().required()
       }).required(),
       techStackEligibility: Joi.object({

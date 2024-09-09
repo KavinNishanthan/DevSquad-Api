@@ -25,7 +25,8 @@ export const filterEligibleStudents = async (companyId: string) => {
 
     const resumes = await resumeModel.find({
       collegeId: drive.collegeId,
-      'education.college.isPlacementwilling': true
+      isPlacementwilling: true,
+      batchId: drive.eligibleBatch
     });
 
     const eligibleStudents: string[] = [];
@@ -59,9 +60,9 @@ export const filterEligibleStudents = async (companyId: string) => {
         const requiredSkills = drive.techStackEligibility.requiredSkills || [];
         const studentSkills = resume.skills.map((skill) => skill.skill_name);
 
-        const hasRequiredSkills = requiredSkills.every((skill) => studentSkills.includes(skill));
+        const hasAtLeastOneRequiredSkill = requiredSkills.some((skill) => studentSkills.includes(skill));
 
-        if (!hasRequiredSkills) {
+        if (!hasAtLeastOneRequiredSkill) {
           isEligible = false;
         }
       }
@@ -78,3 +79,4 @@ export const filterEligibleStudents = async (companyId: string) => {
     throw new Error('Error filtering eligible students');
   }
 };
+  

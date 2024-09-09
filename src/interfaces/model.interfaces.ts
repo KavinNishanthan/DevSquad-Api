@@ -26,6 +26,7 @@ interface IResume {
   git_hub_url: string;
   about_me: string;
   department?: string;
+  batchId?: string;
   area_of_interest: string[];
   education: {
     tenth: {
@@ -120,7 +121,7 @@ interface IDrive {
     minTenthMarks?: number;
     minTwelfthMarks?: number;
     minCGPA?: number;
-    noHistoryOfArrears?: boolean;
+    noHistoryOfArrears?: number;
     maxArrears: number;
   };
   techStackEligibility?: {

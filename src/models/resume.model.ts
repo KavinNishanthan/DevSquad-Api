@@ -39,6 +39,10 @@ const schema = new Schema<IResume>({
       required: true
     }
   ],
+  batchId: {
+    type: String,
+    required: true
+  },
   department: {
     type: String,
     required: true
