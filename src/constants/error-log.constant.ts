@@ -25,6 +25,10 @@ export default {
     createDriveErrorLog: '🚀 ~ file: drive.controller.ts ~ createDrive ~ err',
     deleteDriveErrorLog: '🚀 ~ file: drive.controller.ts ~ deleteDrive ~ err',
     getDrivesErrorLog: '🚀 ~ file: drive.controller.ts ~ getDrives ~ err',
-    filterEligibleStudentsErrorLog: '🚀 ~ file: drive.controller.ts ~ filterEligibleStudents ~ err'
+    filterEligibleStudentsErrorLog: '🚀 ~ file: drive.controller.ts ~ filterEligibleStudents ~ err',
+    handleOptInDrivesErrorLog: '🚀 ~ file: drive.controller.ts ~ handleOptInDrives ~ err',
+    handleOptOutDrivesErrorLog: '🚀 ~ file: drive.controller.ts ~ handleOptOutDrives ~ err',
+    fetchOptedStudentsDetailsErrorLog: '🚀 ~ file: drive.controller.ts ~ fetchOptedStudentsDetails ~ err',
+    fetchOptedOutStudentsDetailsErrorLog: '🚀 ~ file: drive.controller.ts ~ fetchOptedOutStudentsDetails ~ err'
   }
 };

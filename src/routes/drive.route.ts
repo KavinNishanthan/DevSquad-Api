@@ -11,5 +11,10 @@ const router = Router();
 router.get('/get-drive/:collegeId', driveController.getDrives);
 router.post('/create-drive/:collegeId', driveController.createDrive);
 router.delete('/delete-drive/:companyId', driveController.deleteDrive);
+router.get('/optin-list/:companyId', driveController.fetchOptedStudents);
+router.get('/optout-list/:companyId', driveController.fetchOptedOutStudents);
+router.put('/optin-drive/:companyId/:studentId', driveController.handleOptInDrive);
+router.put('/optout-drive/:companyId/:studentId', driveController.handleOptOutDrive);
+
 
 export default router;

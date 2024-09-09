@@ -15,6 +15,7 @@ import commonConstant from '../constants/common.constant';
 import errorLogConstant from '../constants/error-log.constant';
 import httpStatusConstant from '../constants/http-message.constant';
 import responseMessageConstant from '../constants/response-message.constant';
+import studentModel from '../models/student.model';
 
 const createDrive = async (req: Request, res: Response) => {
   try {
@@ -209,9 +210,196 @@ const getDrives = async (req: Request, res: Response) => {
   }
 };
 
+const handleOptInDrive = async (req: Request, res: Response) => {
+  try {
+    const { studentId, companyId } = req.params;
+
+    const optInValidationSchema = Joi.object({
+      studentId: Joi.string().required(),
+      companyId: Joi.string().required()
+    });
+
+    const { error } = optInValidationSchema.validate(req.params);
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message.replace(/"/g, '') });
+    }
+
+    const drive = await driveModel.findOne({ companyId });
+    if (!drive) {
+      return res.status(404).json({ message: 'Drive not found' });
+    }
+
+    if (drive.isOpen) {
+      return res.status(400).json({ message: 'Drive is not open for opting in' });
+    }
+
+    if (drive.optedStudents.includes(studentId)) {
+      return res.status(400).json({ message: 'Student already opted in for the drive' });
+    }
+
+    drive.optedStudents.push(studentId);
+    await drive.save();
+
+    return res.status(200).json({ message: 'Student successfully opted in for the drive' });
+  } catch (err: any) {
+    console.log(errorLogConstant.driveController.handleOptInDrivesErrorLog, err.message);
+    return res.status(500).json({
+      status: httpStatusConstant.ERROR,
+      code: 500,
+      message: 'Internal server error'
+    });
+  }
+};
+
+const handleOptOutDrive = async (req: Request, res: Response) => {
+  try {
+    const { studentId, companyId } = req.params;
+
+    const optOutValidationSchema = Joi.object({
+      studentId: Joi.string().required(),
+      companyId: Joi.string().required()
+    });
+
+    const { error } = optOutValidationSchema.validate(req.params);
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message.replace(/"/g, '') });
+    }
+
+    const drive = await driveModel.findOne({ companyId });
+    if (!drive) {
+      return res.status(404).json({ message: 'Drive not found' });
+    }
+
+    if (drive.isOpen) {
+      return res.status(400).json({ message: 'Drive is not open for opting out' });
+    }
+
+    if (drive.optedOutStudents.includes(studentId)) {
+      return res.status(400).json({ message: 'Student already opted out of the drive' });
+    }
+
+    drive.optedOutStudents.push(studentId);
+    await drive.save();
+
+    return res.status(200).json({ message: 'Student successfully opted out of the drive' });
+  } catch (err: any) {
+    console.log(errorLogConstant.driveController.handleOptOutDrivesErrorLog, err.message);
+    return res.status(500).json({
+      status: httpStatusConstant.ERROR,
+      code: 500,
+      message: 'Internal server error'
+    });
+  }
+};
+
+const fetchOptedStudents = async (req: Request, res: Response) => {
+  try {
+    const fetchOptedStudentsSchema = Joi.object({
+      companyId: Joi.string().required()
+    });
+
+    const { error } = fetchOptedStudentsSchema.validate(req.params);
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
+
+    const { companyId } = req.params;
+
+    const drive = await driveModel.findOne({ companyId });
+    if (!drive) {
+      return res.status(404).json({ message: 'Drive not found' });
+    }
+
+    const optedStudentsIds = drive.optedStudents;
+
+    if (optedStudentsIds.length === 0) {
+      return res.status(200).json({ message: 'No students have opted in for this drive' });
+    }
+
+    const studentsDetails = await studentModel.find(
+      { studentId: { $in: optedStudentsIds } },
+      {
+        name: 1,
+        email: 1,
+        register_number: 1,
+        department: 1,
+        contact_number: 1
+      }
+    );
+
+    if (studentsDetails.length === 0) {
+      return res.status(404).json({ message: 'No students found for the opted IDs' });
+    }
+
+    return res.status(200).json(studentsDetails);
+  } catch (err: any) {
+    console.log(errorLogConstant.driveController.fetchOptedStudentsDetailsErrorLog, err.message);
+    return res.status(500).json({
+      status: httpStatusConstant.ERROR,
+      code: 500,
+      message: 'Internal server error'
+    });
+  }
+};
+
+const fetchOptedOutStudents = async (req: Request, res: Response) => {
+  try {
+    const fetchOptedOutStudentsSchema = Joi.object({
+      companyId: Joi.string().required()
+    });
+
+    const { error } = fetchOptedOutStudentsSchema.validate(req.params);
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
+
+    const { companyId } = req.params;
+
+    const drive = await driveModel.findOne({ companyId });
+    if (!drive) {
+      return res.status(404).json({ message: 'Drive not found' });
+    }
+
+    const optedOutStudentsIds = drive.optedOutStudents;
+
+    if (optedOutStudentsIds.length === 0) {
+      return res.status(200).json({ message: 'No students have opted out for this drive' });
+    }
+
+    const studentsDetails = await studentModel.find(
+      { studentId: { $in: optedOutStudentsIds } },
+      {
+        name: 1,
+        email: 1,
+        register_number: 1,
+        department: 1,
+        contact_number: 1
+      }
+    );
+
+    // If no students are found
+    if (studentsDetails.length === 0) {
+      return res.status(404).json({ message: 'No students found for the opted-out IDs' });
+    }
+
+    // Return the students' details
+    return res.status(200).json(studentsDetails);
+  } catch (err: any) {
+    console.log(errorLogConstant.driveController.fetchOptedOutStudentsDetailsErrorLog, err.message);
+    return res.status(500).json({
+      status: httpStatusConstant.ERROR,
+      code: 500,
+      message: 'Internal server error'
+    });
+  }
+};
 
 export default {
   createDrive,
   deleteDrive,
-  getDrives
+  getDrives,
+  handleOptInDrive,
+  handleOptOutDrive,
+  fetchOptedStudents,
+  fetchOptedOutStudents
 };

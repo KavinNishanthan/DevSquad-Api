@@ -117,6 +117,10 @@ const driveSchema = new Schema<IDrive>({
       default: []
     }
   },
+  isOpen: {
+    type: Boolean,
+    default: true
+  },
   createdAt: {
     type: Date,
     default: Date.now

@@ -132,6 +132,7 @@ interface IDrive {
   optedOutStudents: string[];
   placedStudents: string[];
   eligibleStudentsId: string[];
+  isOpen: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
