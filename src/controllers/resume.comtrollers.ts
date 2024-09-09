@@ -28,7 +28,8 @@ const createResume = async (req: Request, res: Response) => {
       education,
       no_of_current_arrear,
       history_of_arrears,
-      department
+      department,
+      batchId
     } = req.body;
 
     const { studentId, collegeId } = req.params;
@@ -60,6 +61,7 @@ const createResume = async (req: Request, res: Response) => {
 
     await resumeModel.create({
       studentId,
+      batchId,
       linkedin_profile,
       leetcode_profile,
       department,

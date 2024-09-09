@@ -1,5 +1,5 @@
 // Importing packges
-import Joi, { string } from 'joi';
+import Joi, { date, string } from 'joi';
 import bcrypt from 'bcryptjs';
 import { HttpStatusCode } from 'axios';
 import { Request, Response } from 'express';
@@ -162,7 +162,8 @@ const handleLogin = async (req: Request, res: Response) => {
             .status(HttpStatusCode.Ok)
             .json({
               status: httpStatusConstant.OK,
-              code: HttpStatusCode.Ok
+              code: HttpStatusCode.Ok,
+              data: userResponse
             });
         } else {
           res.status(HttpStatusCode.Unauthorized).json({
@@ -192,7 +193,8 @@ const handleLogin = async (req: Request, res: Response) => {
           .status(HttpStatusCode.Ok)
           .json({
             status: httpStatusConstant.OK,
-            code: HttpStatusCode.Ok
+            code: HttpStatusCode.Ok,
+            data: userResponse
           });
       } else {
         res.status(HttpStatusCode.Unauthorized).json({

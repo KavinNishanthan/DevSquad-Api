@@ -26,7 +26,7 @@ interface IResume {
   git_hub_url: string;
   about_me: string;
   department?: string;
-  batchId?: string;
+  batchId: string;
   area_of_interest: string[];
   education: {
     tenth: {
