@@ -111,7 +111,6 @@ const createDrive = async (req: Request, res: Response) => {
 
     await newDrive.save();
 
-    // After creating the drive, immediately run the filterEligibleStudents function
     await filterEligibleStudents(generatedCompanyId);
 
     res.status(HttpStatusCode.Created).json({
@@ -377,18 +376,57 @@ const fetchOptedOutStudents = async (req: Request, res: Response) => {
       }
     );
 
-    // If no students are found
     if (studentsDetails.length === 0) {
       return res.status(404).json({ message: 'No students found for the opted-out IDs' });
     }
 
-    // Return the students' details
     return res.status(200).json(studentsDetails);
   } catch (err: any) {
     console.log(errorLogConstant.driveController.fetchOptedOutStudentsDetailsErrorLog, err.message);
     return res.status(500).json({
       status: httpStatusConstant.ERROR,
       code: 500,
+      message: 'Internal server error'
+    });
+  }
+};
+
+const updatePlacedStudents = async (req: Request, res: Response) => {
+  try {
+    const { companyId, studentId } = req.params;
+
+    const schema = Joi.object({
+      studentId: Joi.string().required(),
+      companyId: Joi.string().required()
+    });
+
+    const { error } = schema.validate(req.params);
+
+    if (error) {
+      return res.status(400).json({
+        message: error.details[0].message.replace(/"/g, '')
+      });
+    }
+
+    const drive = await driveModel.findOne({ companyId });
+    if (!drive) {
+      return res.status(404).json({ message: 'Drive not found' });
+    }
+
+    if (drive.placedStudents.includes(studentId)) {
+      return res.status(400).json({ message: 'Student already marked as placed for this drive' });
+    }
+
+    drive.placedStudents.push(studentId);
+    await drive.save();
+
+    return res.status(200).json({
+      message: 'Student successfully added to placed students list',
+      placedStudents: drive.placedStudents
+    });
+  } catch (err: any) {
+    console.error('Error updating placed students:', err.message);
+    return res.status(500).json({
       message: 'Internal server error'
     });
   }
@@ -401,5 +439,6 @@ export default {
   handleOptInDrive,
   handleOptOutDrive,
   fetchOptedStudents,
-  fetchOptedOutStudents
+  fetchOptedOutStudents,
+  updatePlacedStudents
 };
