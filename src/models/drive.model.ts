@@ -81,6 +81,10 @@ const driveSchema = new Schema<IDrive>({
     type: [String],
     default: []
   },
+  eligibleStudentsId: {
+    type: [String],
+    default: []
+  },
   eligibilityCriteria: {
     minTenthMarks: {
       type: Number,

@@ -23,5 +23,8 @@ export default {
   RESUME_NOT_FOUND: 'Resume not found!',
   RESUME_UPDATE_FAILED: 'Failed to update resume!',
   ERROR_ADDING_SKILL: 'Error adding skill',
-  SKILL_ADDED_SUCCESSFULLY: 'Skill added successfully'
+  SKILL_ADDED_SUCCESSFULLY: 'Skill added successfully',
+
+  //Drive messages
+  DRIVE_NOT_FOUND: 'DRIVE_NOT_FOUND'
 };

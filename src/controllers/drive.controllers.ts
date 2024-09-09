@@ -4,9 +4,11 @@ import bcrypt from 'bcryptjs';
 import { HttpStatusCode } from 'axios';
 import { Request, Response } from 'express';
 import { generateUUID } from '../helpers/uuid.helper';
+import { filterEligibleStudents } from '../helpers/filterStudents.helper';
 
 // Importing models
 import driveModel from '../models/drive.model';
+import resumeModel from '../models/resume.model';
 
 // Importing constants
 import commonConstant from '../constants/common.constant';
@@ -108,10 +110,13 @@ const createDrive = async (req: Request, res: Response) => {
 
     await newDrive.save();
 
+    // After creating the drive, immediately run the filterEligibleStudents function
+    await filterEligibleStudents(generatedCompanyId);
+
     res.status(HttpStatusCode.Created).json({
       status: httpStatusConstant.CREATED,
       code: HttpStatusCode.Created,
-      message: 'Drive created successfully!'
+      message: 'Drive created and eligible students filtered successfully!'
     });
   } catch (err: any) {
     console.log(errorLogConstant.driveController.createDriveErrorLog, err.message);
@@ -203,6 +208,7 @@ const getDrives = async (req: Request, res: Response) => {
     });
   }
 };
+
 
 export default {
   createDrive,

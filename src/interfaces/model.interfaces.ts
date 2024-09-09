@@ -3,10 +3,10 @@ interface IStudent {
   name?: string;
   email: string;
   password: string;
-  department?: string;
   personal_email?: string;
   register_number?: string;
   contact_number?: string;
+  department?: string;
   collegeId: string;
   batchId: string;
   profilePictureUrl?: string;
@@ -19,11 +19,13 @@ interface IStudent {
 
 interface IResume {
   studentId: string;
+  collegeId: string;
   linkedin_profile: string;
   leetcode_profile: string;
   portfolio_url: string;
   git_hub_url: string;
   about_me: string;
+  department?: string;
   area_of_interest: string[];
   education: {
     tenth: {
@@ -68,6 +70,7 @@ interface IResume {
   optout_drives: string[];
   placementStatus: boolean;
   placedCompany?: string;
+  isPlacementwilling: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -127,6 +130,7 @@ interface IDrive {
   optedStudents: string[];
   optedOutStudents: string[];
   placedStudents: string[];
+  eligibleStudentsId: string[];
   createdAt: Date;
   updatedAt: Date;
 }

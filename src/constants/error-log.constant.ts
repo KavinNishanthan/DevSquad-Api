@@ -6,6 +6,9 @@ export default {
     handleGoogleLoginErrorLog: '🚀 ~ file: auth.controller.ts ~ handleGoogleLogin ~ err',
     handleLogoutErrorLog: '🚀 ~ file: auth.controller.ts ~ handleLogout ~ err'
   },
+  studentController: {
+    updateContactErrorLog: '🚀 ~ file: auth.controller.ts ~ updateContact ~ err'
+  },
   resumeController: {
     createResumeErrorLog: '🚀 ~ file: resume.controller.ts ~ createResume ~ err',
     updateResumeErrorLog: '🚀 ~ file: resume.controller.ts ~ updateResume ~ err',
@@ -15,11 +18,13 @@ export default {
     addExperienceErrorLog: '🚀 ~ file: resume.controller.ts ~ addExperience ~ err',
     deleteExperienceErrorLog: '🚀 ~ file: resume.controller.ts ~ deleteExperience ~ err',
     updateAreaOfInterestErrorLog: '🚀 ~ file: resume.controller.ts ~ updateAreaOfInterest ~ err',
-    deleteAreaOfInterestErrorLog: '🚀 ~ file: resume.controller.ts ~ deleteAreaOfInterest ~ err'
+    deleteAreaOfInterestErrorLog: '🚀 ~ file: resume.controller.ts ~ deleteAreaOfInterest ~ err',
+    getResumeErrorLog: '🚀 ~ file: resume.controller.ts ~ getResume ~ err'
   },
   driveController: {
     createDriveErrorLog: '🚀 ~ file: drive.controller.ts ~ createDrive ~ err',
     deleteDriveErrorLog: '🚀 ~ file: drive.controller.ts ~ deleteDrive ~ err',
-    getDrivesErrorLog: '🚀 ~ file: drive.controller.ts ~ getDrives~ err'
+    getDrivesErrorLog: '🚀 ~ file: drive.controller.ts ~ getDrives ~ err',
+    filterEligibleStudentsErrorLog: '🚀 ~ file: drive.controller.ts ~ filterEligibleStudents ~ err'
   }
 };

@@ -27,13 +27,15 @@ const createResume = async (req: Request, res: Response) => {
       about_me,
       education,
       no_of_current_arrear,
-      history_of_arrears
+      history_of_arrears,
+      department
     } = req.body;
 
-    const { studentId } = req.params;
+    const { studentId, collegeId } = req.params;
 
     const resumeValidation = Joi.object({
-      studentId: Joi.string().required()
+      studentId: Joi.string().required(),
+      collegeId: Joi.string().required()
     });
 
     const { error } = resumeValidation.validate(req.params);
@@ -60,6 +62,7 @@ const createResume = async (req: Request, res: Response) => {
       studentId,
       linkedin_profile,
       leetcode_profile,
+      department,
       portfolio_url,
       git_hub_url,
       about_me,
@@ -70,7 +73,8 @@ const createResume = async (req: Request, res: Response) => {
       optin_drives: [],
       optout_drives: [],
       no_of_current_arrear,
-      history_of_arrears
+      history_of_arrears,
+      collegeId
     });
 
     res.status(HttpStatusCode.Created).json({
@@ -506,7 +510,51 @@ const deleteAreaOfInterest = async (req: Request, res: Response) => {
   }
 };
 
+const getResume = async (req: Request, res: Response) => {
+  try {
+    const { studentId } = req.params;
+
+    // Validate studentId
+    const verifyStudent = Joi.object({
+      studentId: Joi.string().required()
+    });
+
+    const { error } = verifyStudent.validate({ studentId });
+
+    if (error) {
+      return res.status(HttpStatusCode.BadRequest).json({
+        status: httpStatusConstant.BAD_REQUEST,
+        code: HttpStatusCode.BadRequest,
+        message: error.details[0].message.replace(/"/g, '')
+      });
+    }
+
+    const student = await resumeModel.findOne({ studentId });
+
+    if (!student) {
+      return res.status(HttpStatusCode.NotFound).json({
+        status: httpStatusConstant.NOT_FOUND,
+        code: HttpStatusCode.NotFound,
+        message: responseMessageConstant.USER_NOT_FOUND
+      });
+    }
+
+    res.status(HttpStatusCode.Ok).json({
+      status: httpStatusConstant.OK,
+      code: HttpStatusCode.Ok,
+      resume: student
+    });
+  } catch (err: any) {
+    console.log(errorLogConstant.resumeController.getResumeErrorLog, err.message);
+    return res.status(HttpStatusCode.InternalServerError).json({
+      status: httpStatusConstant.ERROR,
+      code: HttpStatusCode.InternalServerError
+    });
+  }
+};
+
 export default {
+  getResume,
   createResume,
   updateResume,
   addSkills,

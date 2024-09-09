@@ -9,6 +9,10 @@ const schema = new Schema<IResume>({
     type: String,
     required: true
   },
+  collegeId: {
+    type: String,
+    required: true
+  },
   linkedin_profile: {
     type: String,
     required: true
@@ -35,6 +39,10 @@ const schema = new Schema<IResume>({
       required: true
     }
   ],
+  department: {
+    type: String,
+    required: true
+  },
   education: {
     tenth: {
       institution: {
@@ -179,6 +187,10 @@ const schema = new Schema<IResume>({
   placedCompany: {
     type: String,
     default: null
+  },
+  isPlacementwilling: {
+    type: Boolean,
+    default: true
   },
   createdAt: {
     type: Date,

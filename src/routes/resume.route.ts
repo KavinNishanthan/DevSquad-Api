@@ -8,7 +8,8 @@ import resumeController from '../controllers/resume.comtrollers';
 const router = Router();
 
 // Resume routes
-router.post('/create-resume/:studentId', resumeController.createResume);
+router.post('/create-resume/:collegeId/:studentId/', resumeController.createResume);
+router.get('/get-resume/:studentId', resumeController.getResume);
 router.put('/update-resume/:studentId', resumeController.updateResume);
 router.post('/add-skill/:studentId', resumeController.addSkills);
 router.post('/add-project/:studentId', resumeController.addProject);
