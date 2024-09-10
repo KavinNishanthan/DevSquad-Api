@@ -168,6 +168,10 @@ const schema = new Schema<IResume>({
       test_result: {
         type: String,
         enum: ['passed', 'failed']
+      },
+      level: {
+        type: String,
+        enum: ['beginner', 'intermediate', 'expert']
       }
     }
   ],
