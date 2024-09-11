@@ -15,7 +15,8 @@ const app = (0, express_1.default)();
 const port = process.env.PORT;
 (0, mongoose_config_1.default)();
 app.use((0, cors_1.default)({
-    origin: ['http://localhost:5173'],
+    // origin: ['http://localhost:3000', 'http://localhost:5173'],
+    origin: true,
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
     credentials: true
 }));

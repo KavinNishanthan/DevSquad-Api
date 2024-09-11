@@ -180,7 +180,8 @@ const addSkills = async (req: Request, res: Response) => {
 
     student.skills.push({
       skill_name,
-      test_result
+      test_result,
+      level:'beginner',
     });
 
     await student.save();

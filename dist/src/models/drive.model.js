@@ -79,27 +79,45 @@ const driveSchema = new mongoose_1.Schema({
         type: [String],
         default: []
     },
+    eligibleStudentsId: {
+        type: [String],
+        default: []
+    },
     eligibilityCriteria: {
         minTenthMarks: {
             type: Number,
-            default: null
+            required: true
         },
         minTwelfthMarks: {
             type: Number,
-            default: null
+            required: true
         },
         minCGPA: {
             type: Number,
-            default: null
+            required: true
         },
         noHistoryOfArrears: {
-            type: Boolean,
-            default: null
+            type: Number,
+            required: true
         },
         maxArrears: {
             type: Number,
             required: true
         }
+    },
+    techStackEligibility: {
+        isTechStackRequired: {
+            type: Boolean,
+            required: true
+        },
+        requiredSkills: {
+            type: [String],
+            default: []
+        }
+    },
+    isOpen: {
+        type: Boolean,
+        default: true
     },
     createdAt: {
         type: Date,

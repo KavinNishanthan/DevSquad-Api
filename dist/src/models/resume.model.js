@@ -7,6 +7,10 @@ const schema = new mongoose_1.Schema({
         type: String,
         required: true
     },
+    collegeId: {
+        type: String,
+        required: true
+    },
     linkedin_profile: {
         type: String,
         required: true
@@ -33,6 +37,14 @@ const schema = new mongoose_1.Schema({
             required: true
         }
     ],
+    batchId: {
+        type: String,
+        required: true
+    },
+    department: {
+        type: String,
+        required: true
+    },
     education: {
         tenth: {
             institution: {
@@ -154,6 +166,10 @@ const schema = new mongoose_1.Schema({
             test_result: {
                 type: String,
                 enum: ['passed', 'failed']
+            },
+            level: {
+                type: String,
+                enum: ['beginner', 'intermediate', 'expert']
             }
         }
     ],
@@ -177,6 +193,10 @@ const schema = new mongoose_1.Schema({
     placedCompany: {
         type: String,
         default: null
+    },
+    isPlacementwilling: {
+        type: Boolean,
+        default: true
     },
     createdAt: {
         type: Date,

@@ -28,10 +28,11 @@ const response_message_constant_1 = __importDefault(require("../constants/respon
  */
 const createResume = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { linkedin_profile, leetcode_profile, portfolio_url, git_hub_url, about_me, education, no_of_current_arrear, history_of_arrears } = req.body;
-        const { studentId } = req.params;
+        const { linkedin_profile, leetcode_profile, portfolio_url, git_hub_url, about_me, education, no_of_current_arrear, history_of_arrears, department, batchId } = req.body;
+        const { studentId, collegeId } = req.params;
         const resumeValidation = joi_1.default.object({
-            studentId: joi_1.default.string().required()
+            studentId: joi_1.default.string().required(),
+            collegeId: joi_1.default.string().required()
         });
         const { error } = resumeValidation.validate(req.params);
         if (error) {
@@ -51,8 +52,10 @@ const createResume = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         }
         yield resume_model_1.default.create({
             studentId,
+            batchId,
             linkedin_profile,
             leetcode_profile,
+            department,
             portfolio_url,
             git_hub_url,
             about_me,
@@ -63,7 +66,8 @@ const createResume = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             optin_drives: [],
             optout_drives: [],
             no_of_current_arrear,
-            history_of_arrears
+            history_of_arrears,
+            collegeId
         });
         res.status(axios_1.HttpStatusCode.Created).json({
             status: http_message_constant_1.default.CREATED,
@@ -148,7 +152,8 @@ const addSkills = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         student.skills.push({
             skill_name,
-            test_result
+            test_result,
+            level: 'beginner',
         });
         yield student.save();
         res.status(axios_1.HttpStatusCode.Created).json({
@@ -420,7 +425,45 @@ const deleteAreaOfInterest = (req, res) => __awaiter(void 0, void 0, void 0, fun
         });
     }
 });
+const getResume = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { studentId } = req.params;
+        // Validate studentId
+        const verifyStudent = joi_1.default.object({
+            studentId: joi_1.default.string().required()
+        });
+        const { error } = verifyStudent.validate({ studentId });
+        if (error) {
+            return res.status(axios_1.HttpStatusCode.BadRequest).json({
+                status: http_message_constant_1.default.BAD_REQUEST,
+                code: axios_1.HttpStatusCode.BadRequest,
+                message: error.details[0].message.replace(/"/g, '')
+            });
+        }
+        const student = yield resume_model_1.default.findOne({ studentId });
+        if (!student) {
+            return res.status(axios_1.HttpStatusCode.NotFound).json({
+                status: http_message_constant_1.default.NOT_FOUND,
+                code: axios_1.HttpStatusCode.NotFound,
+                message: response_message_constant_1.default.USER_NOT_FOUND
+            });
+        }
+        res.status(axios_1.HttpStatusCode.Ok).json({
+            status: http_message_constant_1.default.OK,
+            code: axios_1.HttpStatusCode.Ok,
+            resume: student
+        });
+    }
+    catch (err) {
+        console.log(error_log_constant_1.default.resumeController.getResumeErrorLog, err.message);
+        return res.status(axios_1.HttpStatusCode.InternalServerError).json({
+            status: http_message_constant_1.default.ERROR,
+            code: axios_1.HttpStatusCode.InternalServerError
+        });
+    }
+});
 exports.default = {
+    getResume,
     createResume,
     updateResume,
     addSkills,

@@ -181,7 +181,8 @@ const handleLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                         .status(axios_1.HttpStatusCode.Ok)
                         .json({
                         status: http_message_constant_1.default.OK,
-                        code: axios_1.HttpStatusCode.Ok
+                        code: axios_1.HttpStatusCode.Ok,
+                        data: userResponse
                     });
                 }
                 else {
@@ -212,7 +213,8 @@ const handleLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                     .status(axios_1.HttpStatusCode.Ok)
                     .json({
                     status: http_message_constant_1.default.OK,
-                    code: axios_1.HttpStatusCode.Ok
+                    code: axios_1.HttpStatusCode.Ok,
+                    data: userResponse
                 });
             }
             else {

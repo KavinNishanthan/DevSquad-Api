@@ -23,8 +23,10 @@ exports.default = {
     RESUME_UPDATE_FAILED: 'Failed to update resume!',
     ERROR_ADDING_SKILL: 'Error adding skill',
     SKILL_ADDED_SUCCESSFULLY: 'Skill added successfully',
+    //Drive messages
+    DRIVE_NOT_FOUND: 'DRIVE_NOT_FOUND',
     //Question messages
-    QUESTIONS_ADDED_SUCCESSFULLY: 'Questions added sucessfully',
-    INTERNAL_SERVER_ERROR: 'Server Error',
-    QUESTIONS_FETCHED_SUCCESSFULLY: 'Questions fetched sucessfully',
+    QUESTIONS_ADDED_SUCCESSFULLY: "questions added successfully",
+    INTERNAL_SERVER_ERROR: "internal server error",
+    QUESTIONS_FETCHED_SUCCESSFULLY: "questions fetched successfully"
 };
