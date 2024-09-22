@@ -7,6 +7,7 @@ import resumeRoute from './resume.route';
 import driveRoute from './drive.route';
 import addQuestion from './addQuestion.route';
 import getQuestion from './getQuestion.route'
+import submit from './submitTest.route'
 // Defining router
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use('/resume', resumeRoute);
 router.use('/drive', driveRoute);
 router.use('/questions',addQuestion);
 router.use('/questions',getQuestion);
+router.use('/questions',submit)
 
 export default router;

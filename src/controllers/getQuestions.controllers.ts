@@ -1,10 +1,21 @@
+// Importing packges
 import { Request, Response } from 'express';
-import mongoose from 'mongoose';
 import Joi from 'joi';
 import { HttpStatusCode } from 'axios';
+
+// Importing models
+import mongoose from 'mongoose';
+
+// Importing constants
 import httpStatusConstant from '../constants/http-message.constant';
 import responseMessageConstant from '../constants/response-message.constant';
 
+
+/**
+ * @createdBy Kamalesh J
+ * @createdAt 2024-09-10
+ * @description This function is used to handle get question
+ */
 
 export const handleGetQuestions = async (req: Request, res: Response) => {
   try {

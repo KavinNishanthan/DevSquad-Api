@@ -1,10 +1,20 @@
+// Importing packges
 import { Request, Response } from 'express';
 import Joi from 'joi';
-import { createDynamicModel } from '../models/questions.model';
 import { HttpStatusCode } from 'axios';
+
+// Importing models
+import { createDynamicModel } from '../models/questions.model';
+
+// Importing constants
 import httpStatusConstant from '../constants/http-message.constant';
 import responseMessageConstant from '../constants/response-message.constant';
 
+/**
+ * @createdBy Kamalesh J
+ * @createdAt 2024-09-10
+ * @description This function is used to handle add question
+ */
 
 export const handleAddQuestions = async (req: Request, res: Response) => {
   try {

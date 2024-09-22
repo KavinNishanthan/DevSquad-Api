@@ -14,10 +14,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleAddQuestions = void 0;
 const joi_1 = __importDefault(require("joi"));
-const questions_model_1 = require("../models/questions.model");
 const axios_1 = require("axios");
+// Importing models
+const questions_model_1 = require("../models/questions.model");
+// Importing constants
 const http_message_constant_1 = __importDefault(require("../constants/http-message.constant"));
 const response_message_constant_1 = __importDefault(require("../constants/response-message.constant"));
+/**
+ * @createdBy Kamalesh J
+ * @createdAt 2024-09-10
+ * @description This function is used to handle add question
+ */
 const handleAddQuestions = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, questions } = req.body;

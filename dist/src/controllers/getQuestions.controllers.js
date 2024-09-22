@@ -13,11 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleGetQuestions = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
 const joi_1 = __importDefault(require("joi"));
 const axios_1 = require("axios");
+// Importing models
+const mongoose_1 = __importDefault(require("mongoose"));
+// Importing constants
 const http_message_constant_1 = __importDefault(require("../constants/http-message.constant"));
 const response_message_constant_1 = __importDefault(require("../constants/response-message.constant"));
+/**
+ * @createdBy Kamalesh J
+ * @createdAt 2024-09-10
+ * @description This function is used to handle get question
+ */
 const handleGetQuestions = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { topic, difficulty } = req.params;

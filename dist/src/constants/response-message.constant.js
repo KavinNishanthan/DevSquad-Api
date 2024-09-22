@@ -28,5 +28,7 @@ exports.default = {
     //Question messages
     QUESTIONS_ADDED_SUCCESSFULLY: "questions added successfully",
     INTERNAL_SERVER_ERROR: "internal server error",
-    QUESTIONS_FETCHED_SUCCESSFULLY: "questions fetched successfully"
+    QUESTIONS_FETCHED_SUCCESSFULLY: "questions fetched successfully",
+    //Submit test message
+    SUBMITTED_SUCCESSFULLY: "test submitted successfully"
 };
