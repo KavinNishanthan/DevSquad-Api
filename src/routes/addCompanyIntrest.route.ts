@@ -8,6 +8,6 @@ import handleintrestController from '../controllers/addCompanyIntrest.controller
 const router = Router();
 
 // question routes
-router.post('/add-intrest/:studentId/:companyId', handleintrestController.handlesubmitintrest);
+router.post('/opt-status/:studentId/:companyId', handleintrestController.handlesubmitintrest);
 
 export default router;
