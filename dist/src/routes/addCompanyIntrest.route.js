@@ -10,5 +10,5 @@ const addCompanyIntrest_controller_1 = __importDefault(require("../controllers/a
 // Defining router
 const router = (0, express_1.Router)();
 // question routes
-router.post('/add-intrest/:studentId/:companyId', addCompanyIntrest_controller_1.default.handlesubmitintrest);
+router.post('/opt-status/:studentId/:companyId', addCompanyIntrest_controller_1.default.handlesubmitintrest);
 exports.default = router;

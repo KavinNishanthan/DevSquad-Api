@@ -165,7 +165,7 @@ const schema = new mongoose_1.Schema({
             },
             test_result: {
                 type: String,
-                enum: ['passed', 'failed']
+                enum: ['pending', 'passed', 'failed']
             },
             level: {
                 type: String,

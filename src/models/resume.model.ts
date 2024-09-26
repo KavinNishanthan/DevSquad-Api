@@ -167,7 +167,7 @@ const schema = new Schema<IResume>({
       },
       test_result: {
         type: String,
-        enum: ['passed', 'failed']
+        enum: ['pending','passed', 'failed']
       },
       level: {
         type: String,
