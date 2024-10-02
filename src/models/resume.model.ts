@@ -60,10 +60,6 @@ const schema = new Schema<IResume>({
       percentage: {
         type: Number,
         required: true
-      },
-      grade: {
-        type: String,
-        required: true
       }
     },
     twelth: {
@@ -77,10 +73,6 @@ const schema = new Schema<IResume>({
       },
       percentage: {
         type: Number,
-        required: true
-      },
-      grade: {
-        type: String,
         required: true
       }
     },

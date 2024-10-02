@@ -58,10 +58,6 @@ const schema = new mongoose_1.Schema({
             percentage: {
                 type: Number,
                 required: true
-            },
-            grade: {
-                type: String,
-                required: true
             }
         },
         twelth: {
@@ -75,10 +71,6 @@ const schema = new mongoose_1.Schema({
             },
             percentage: {
                 type: Number,
-                required: true
-            },
-            grade: {
-                type: String,
                 required: true
             }
         },

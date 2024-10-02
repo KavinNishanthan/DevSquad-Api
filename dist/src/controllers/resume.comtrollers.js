@@ -90,6 +90,7 @@ const updateResume = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const { studentId } = req.params;
         const updateData = req.body;
+        console.log(updateData);
         const resumeValidation = joi_1.default.object({
             studentId: joi_1.default.string().required()
         });

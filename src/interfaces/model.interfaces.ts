@@ -35,13 +35,11 @@ interface IResume {
       institution: string;
       year_of_completion: number;
       percentage: number;
-      grade: string;
     };
     twelth: {
       institution: string;
       year_of_completion: number;
       percentage: number;
-      grade: string;
     };
     college: {
       degree: string;
