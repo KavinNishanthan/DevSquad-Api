@@ -163,7 +163,7 @@ const schema = new Schema<IResume>({
       },
       level: {
         type: String,
-        enum: ['beginner', 'intermediate', 'expert']
+        enum: ['default','beginner', 'intermediate', 'expert']
       }
     }
   ],

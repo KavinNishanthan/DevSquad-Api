@@ -66,7 +66,7 @@ interface IResume {
   skills: {
     skill_name: string;
     test_result: 'pending'|'passed' | 'failed';
-    level: 'beginner' | 'intermediate' | 'expert';
+    level: 'default'|'beginner' | 'intermediate' | 'expert';
   }[];
   optin_drives: string[];
   optout_drives: string[];
