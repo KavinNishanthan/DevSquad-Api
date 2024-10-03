@@ -152,7 +152,7 @@ const updateResume = async (req: Request, res: Response) => {
 const addSkills = async (req: Request, res: Response) => {
   try {
     const { studentId } = req.params;
-    const { skill_name, test_result } = req.body;
+    const { skill_name, test_result,level} = req.body;
 
     const verifyStudent = Joi.object({
       studentId: Joi.string().required()
@@ -181,7 +181,7 @@ const addSkills = async (req: Request, res: Response) => {
     student.skills.push({
       skill_name,
       test_result,
-      level:'beginner',
+      level,
     });
 
     await student.save();

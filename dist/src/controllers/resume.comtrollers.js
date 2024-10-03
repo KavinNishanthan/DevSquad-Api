@@ -90,7 +90,6 @@ const updateResume = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const { studentId } = req.params;
         const updateData = req.body;
-        console.log(updateData);
         const resumeValidation = joi_1.default.object({
             studentId: joi_1.default.string().required()
         });
@@ -131,7 +130,7 @@ const updateResume = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 const addSkills = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { studentId } = req.params;
-        const { skill_name, test_result } = req.body;
+        const { skill_name, test_result, level } = req.body;
         const verifyStudent = joi_1.default.object({
             studentId: joi_1.default.string().required()
         });
@@ -154,7 +153,7 @@ const addSkills = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         student.skills.push({
             skill_name,
             test_result,
-            level: 'beginner',
+            level: level,
         });
         yield student.save();
         res.status(axios_1.HttpStatusCode.Created).json({

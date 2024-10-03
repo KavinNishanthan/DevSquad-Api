@@ -161,7 +161,7 @@ const schema = new mongoose_1.Schema({
             },
             level: {
                 type: String,
-                enum: ['beginner', 'intermediate', 'expert']
+                enum: ['default', 'beginner', 'intermediate', 'expert']
             }
         }
     ],
