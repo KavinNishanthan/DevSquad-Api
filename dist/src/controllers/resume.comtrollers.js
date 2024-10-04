@@ -153,7 +153,7 @@ const addSkills = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         student.skills.push({
             skill_name,
             test_result,
-            level: level,
+            level,
         });
         yield student.save();
         res.status(axios_1.HttpStatusCode.Created).json({
@@ -462,11 +462,56 @@ const getResume = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
 });
+/**
+ * @createdBy Kamalesh J
+ * @createdAt 2024-10-04
+ * @description This function is used to update Skill
+ */
+const updateSkills = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { studentId } = req.params;
+        const updateData = req.body;
+        const verifyStudent = joi_1.default.object({
+            studentId: joi_1.default.string().required()
+        });
+        const { error } = verifyStudent.validate(req.params);
+        if (error) {
+            return res.status(axios_1.HttpStatusCode.BadRequest).json({
+                status: http_message_constant_1.default.BAD_REQUEST,
+                code: axios_1.HttpStatusCode.BadRequest,
+                message: error.details[0].message.replace(/"/g, '')
+            });
+        }
+        const updatedSkill = yield resume_model_1.default.findOneAndUpdate({ studentId, "skills.skill_name": updateData.skill_name }, { $set: {
+                "skills.$.test_result": updateData.test_result,
+                "skills.$.level": updateData.level
+            } }, { new: true, runValidators: true, upsert: false });
+        if (!updatedSkill) {
+            return res.status(axios_1.HttpStatusCode.NotFound).json({
+                status: http_message_constant_1.default.NOT_FOUND,
+                code: axios_1.HttpStatusCode.NotFound,
+                message: response_message_constant_1.default.RESUME_NOT_FOUND
+            });
+        }
+        res.status(axios_1.HttpStatusCode.Ok).json({
+            status: http_message_constant_1.default.OK,
+            code: axios_1.HttpStatusCode.Ok
+        });
+    }
+    catch (err) {
+        console.log(error_log_constant_1.default.resumeController.addSkillErrorLog, err.message);
+        return res.status(axios_1.HttpStatusCode.InternalServerError).json({
+            status: http_message_constant_1.default.ERROR,
+            code: axios_1.HttpStatusCode.InternalServerError
+        });
+    }
+});
 exports.default = {
     getResume,
     createResume,
     updateResume,
     addSkills,
+    updateSkills,
     addProject,
     deleteProject,
     addExperience,

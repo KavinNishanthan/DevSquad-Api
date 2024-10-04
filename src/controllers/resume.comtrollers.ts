@@ -556,11 +556,68 @@ const getResume = async (req: Request, res: Response) => {
   }
 };
 
+
+/**
+ * @createdBy Kamalesh J
+ * @createdAt 2024-10-04
+ * @description This function is used to update Skill
+ */
+
+const updateSkills = async (req: Request, res: Response) => {
+  try {
+    const { studentId } = req.params;
+    const updateData = req.body;
+    
+    const verifyStudent = Joi.object({
+      studentId: Joi.string().required()
+    });
+
+    const { error } = verifyStudent.validate(req.params);
+
+    if (error) {
+      return res.status(HttpStatusCode.BadRequest).json({
+        status: httpStatusConstant.BAD_REQUEST,
+        code: HttpStatusCode.BadRequest,
+        message: error.details[0].message.replace(/"/g, '')
+      });
+    }
+
+    const updatedSkill=await resumeModel.findOneAndUpdate(
+      { studentId , "skills.skill_name": updateData.skill_name },
+      { $set: {
+        "skills.$.test_result": updateData.test_result, 
+        "skills.$.level": updateData.level
+      } },
+      { new: true, runValidators: true, upsert: false }
+    )
+    
+    if(!updatedSkill){
+      return res.status(HttpStatusCode.NotFound).json({
+        status: httpStatusConstant.NOT_FOUND,
+        code: HttpStatusCode.NotFound,
+        message: responseMessageConstant.RESUME_NOT_FOUND
+      });
+    }
+
+    res.status(HttpStatusCode.Ok).json({
+      status: httpStatusConstant.OK,
+      code: HttpStatusCode.Ok
+    });
+  } catch (err: any) {
+    console.log(errorLogConstant.resumeController.addSkillErrorLog, err.message);
+    return res.status(HttpStatusCode.InternalServerError).json({
+      status: httpStatusConstant.ERROR,
+      code: HttpStatusCode.InternalServerError
+    });
+  }
+};
+
 export default {
   getResume,
   createResume,
   updateResume,
   addSkills,
+  updateSkills,
   addProject,
   deleteProject,
   addExperience,
