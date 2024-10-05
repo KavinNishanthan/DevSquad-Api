@@ -159,4 +159,8 @@ interface IQuestions{
   answers:string;
 }
 
-export { IStudent, ICollege, IResume, IDrive, IJwtToken, IVerificationToken,IQuestions };
+interface IaddSkill{
+  skill_name:string;
+}
+
+export { IStudent, ICollege, IResume, IDrive, IJwtToken, IVerificationToken,IQuestions,IaddSkill };

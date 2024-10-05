@@ -13,6 +13,7 @@ const addQuestion_route_1 = __importDefault(require("./addQuestion.route"));
 const getQuestion_route_1 = __importDefault(require("./getQuestion.route"));
 const submitTest_route_1 = __importDefault(require("./submitTest.route"));
 const addCompanyIntrest_route_1 = __importDefault(require("./addCompanyIntrest.route"));
+const adminaddskill_route_1 = __importDefault(require("./adminaddskill.route"));
 // Defining router
 const router = (0, express_1.Router)();
 // Non authorization routes
@@ -24,4 +25,5 @@ router.use('/questions', addQuestion_route_1.default);
 router.use('/questions', getQuestion_route_1.default);
 router.use('/questions', submitTest_route_1.default);
 router.use('/company', addCompanyIntrest_route_1.default);
+router.use('/admin', adminaddskill_route_1.default);
 exports.default = router;

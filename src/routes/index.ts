@@ -9,6 +9,7 @@ import addQuestion from './addQuestion.route';
 import getQuestion from './getQuestion.route'
 import submit from './submitTest.route'
 import addintrest from './addCompanyIntrest.route'
+import addskill from './adminaddskill.route'
 // Defining router
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use('/questions',addQuestion);
 router.use('/questions',getQuestion);
 router.use('/questions',submit)
 router.use('/company',addintrest)
+router.use('/admin',addskill)
 
 export default router;
