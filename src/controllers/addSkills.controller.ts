@@ -43,6 +43,33 @@ const handleAddNewSkills=async(req:Request,res:Response)=>{
     }
 }
 
+/**
+ * @createdBy Kavin Nishanthan P D
+ * @createdAt 2024-10-07
+ * @description This function is used to handle add skills from admin side
+ */
+
+const handleGetAllSkills = async (req: Request, res: Response) => {
+    try {
+        const skills = await SkillModel.find({}); 
+        
+        res.status(HttpStatusCode.Ok).json({
+            status: httpStatusConstant.SUCCESS,
+            code: HttpStatusCode.Ok,
+            data: skills 
+        });
+    } catch (error: any) {
+        console.log(error);
+        return res.status(HttpStatusCode.InternalServerError).json({
+            status: httpStatusConstant.ERROR,
+            code: HttpStatusCode.InternalServerError,
+            message: 'Failed to fetch skills. Please try again later.'
+        });
+    }
+};
+
+
 export default{
-    handleAddNewSkills
+    handleAddNewSkills,
+    handleGetAllSkills
 }
